@@ -3,6 +3,11 @@ CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT,
+    "password" TEXT,
+    "image" TEXT NOT NULL,
+    "accessToken" TEXT NOT NULL,
+    "provider" TEXT NOT NULL DEFAULT 'github',
+    "emailVerified" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );

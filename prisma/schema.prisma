@@ -14,7 +14,12 @@ datasource db {
 }
 
 model User {
-  id    String  @id @default(uuid())
-  email String  @unique
-  name  String?
+  id            String  @id @default(uuid())
+  username      String  @unique
+  name          String?
+  password      String?
+  image         String
+  accessToken   String?
+  provider      String  @default("email")
+  emailVerified Boolean @default(false)
 }

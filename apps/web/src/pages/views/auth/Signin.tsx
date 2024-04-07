@@ -10,10 +10,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthInputForm } from "../../../../utils/types/types";
+import { AuthInputForm } from "../../../utils/types/types";
+import Loading from "@/components/ui/Loading";
+import { signInWithEmail } from "@/features/functions/auth/signin-email";
 
 function Signin() {
   const [form, setForm] = useState<Partial<AuthInputForm>>({});
+  const [loading, setLoading] = useState(false);
+
+  const submitHandler = () => {
+    if (form.email && form.password) {
+      setLoading(true);
+      signInWithEmail({ email: form.email, password: form.password })
+        .then((data) => {
+          setLoading(false);
+          if (data) window.localStorage.setItem("token", data?.token);
+          window.location.assign("/");
+        })
+        .catch((_err) => {
+          console.log(_err);
+          setLoading(false);
+        });
+    }
+  };
 
   return (
     <Card className="mx-auto max-w-sm">
@@ -28,6 +47,7 @@ function Signin() {
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
+              disabled={loading}
               id="email"
               type="email"
               placeholder="m@example.com"
@@ -40,6 +60,7 @@ function Signin() {
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
             <Input
+              disabled={loading}
               id="password"
               type="password"
               onChange={(e) =>
@@ -47,8 +68,13 @@ function Signin() {
               }
             />
           </div>
-          <Button type="submit" className="w-full">
-            Login to your account
+          <Button
+            disabled={loading}
+            type="submit"
+            className="w-full"
+            onClick={submitHandler}
+          >
+            {loading ? <Loading /> : "Login to your account"}
           </Button>
           <Button variant="outline" className="w-full">
             Login with GitHub

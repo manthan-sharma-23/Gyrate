@@ -10,10 +10,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthInputForm } from "utils/types/types";
+import { AuthInputForm } from "@/utils/types/types";
+import Loading from "@/components/ui/Loading";
+import { signUpWithEmail } from "@/features/functions/auth/signup-email";
 
 function Signup() {
   const [form, setForm] = useState<Partial<AuthInputForm>>({});
+  const [loading, setLoading] = useState(false);
+
+  const submitHandler = () => {
+    if (form.email && form.password) {
+      setLoading(true);
+      signUpWithEmail({name:form.name, email: form.email, password: form.password })
+        .then((data) => {
+          setLoading(false);
+          if (data) window.localStorage.setItem("token", data?.token);
+          window.location.assign("/");
+        })
+        .catch((_err) => {
+          console.log(_err);
+          setLoading(false);
+        });
+    }
+  };
 
   return (
     <Card className="mx-auto max-w-sm">
@@ -56,8 +75,8 @@ function Signup() {
               }
             />
           </div>
-          <Button type="submit" className="w-full">
-            Create an account
+          <Button type="submit" className="w-full" onClick={submitHandler}>
+            {loading ? <Loading /> : "Create an account"}
           </Button>
           <Button variant="outline" className="w-full">
             Sign up with GitHub

@@ -10,6 +10,6 @@ router
   .post("/signin/github")
   .post("/signup/github")
   .post("/signup/email", SingupUserWithEmail)
-  .post("/singin/email", SignInWithEmail);
+  .post("/signin/email", SignInWithEmail);
 
 export default router;

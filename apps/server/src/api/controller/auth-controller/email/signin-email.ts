@@ -6,11 +6,11 @@ import { JWT_SECRET } from "src/config/exports";
 
 export const SignInWithEmail = async (req: Request, res: Response) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     const findUser = await database.user.findUnique({
       where: {
-        username,
+        email,
       },
     });
 

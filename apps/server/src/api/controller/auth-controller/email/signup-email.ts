@@ -7,11 +7,11 @@ import { getProfilePicture } from "src/utils/random.image.function";
 
 export const SingupUserWithEmail = async (req: Request, res: Response) => {
   try {
-    const { username, name, password } = req.body;
+    const { email, name, password } = req.body;
 
     const findUser = await database.user.findUnique({
       where: {
-        username,
+        email,
       },
     });
 
@@ -34,7 +34,7 @@ export const SingupUserWithEmail = async (req: Request, res: Response) => {
 
     const createUser = await database.user.create({
       data: {
-        username,
+        email,
         name,
         password: hash,
         image,

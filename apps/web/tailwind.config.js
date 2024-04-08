@@ -17,6 +17,12 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        'kode-mono': ['"Kode Mono"', 'monospace'],
+      },
+      fontSize: {
+        md: "1rem"
+      },
       colors: {
         blackdark: '#111113',
         border: "hsl(var(--border))",

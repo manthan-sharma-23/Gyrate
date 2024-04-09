@@ -19,6 +19,7 @@ module.exports = {
     extend: {
       fontFamily: {
         'kode-mono': ['"Kode Mono"', 'monospace'],
+        'poppins': ["Poppins", 'sans-serif']
       },
       fontSize: {
         md: "1rem"

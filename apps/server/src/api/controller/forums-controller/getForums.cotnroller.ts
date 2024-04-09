@@ -15,6 +15,9 @@ export const getForums = async (req: ProtectedRequest, res: Response) => {
       include: {
         User: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return res.json(forums);

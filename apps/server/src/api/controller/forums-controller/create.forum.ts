@@ -8,7 +8,6 @@ export const createForum = async (req: ProtectedRequest, res: Response) => {
 
     const { title, description } = req.body;
 
-    console.log(userId, title, description);
 
     if (!userId || !title) {
       return res.sendStatus(402);

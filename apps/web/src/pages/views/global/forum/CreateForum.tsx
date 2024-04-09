@@ -40,7 +40,7 @@ const CreateForum = () => {
           </p>
           <input
             disabled={loading}
-            className="text-white/75 font-semibold px-3 h-full w-full outline-none bg-transparent font-kode-mono placeholder:text-white/40"
+            className="text-white/75 font-semibold px-3 h-full w-full outline-none bg-transparent font-poppins placeholder:text-white/40"
             placeholder="Enter Title Here"
             value={forum?.title}
             onChange={(e) => {

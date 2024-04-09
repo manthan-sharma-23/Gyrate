@@ -16,15 +16,11 @@ export const authUser = (
 ) => {
   try {
     let token = req.header("Authorization");
-    console.log(token)
     if (!token) return res.sendStatus(401);
-
 
     if (token.startsWith("Bearer ")) token = token.split(" ")[1];
 
     const payload = jwt.verify(token!, JWT_SECRET!) as UserJwtPayload;
-
-    console.log(payload)
 
     if (!payload.userId) {
       return res.sendStatus(401);

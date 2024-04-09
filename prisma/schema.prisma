@@ -24,7 +24,7 @@ model User {
 model Forum {
   id          String    @id @default(uuid())
   title       String
-  description String?
+  description String?   @db.VarChar(100000)
   userId      String
   User        User      @relation(fields: [userId], references: [id])
   tags        String[]

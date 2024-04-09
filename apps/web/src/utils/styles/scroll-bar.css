@@ -1,0 +1,22 @@
+/* Width and height of scrollbar track */
+.scroll-ui::-webkit-scrollbar {
+  width: 7px; /* width of vertical scrollbar */
+  height: 10px; /* height of horizontal scrollbar */
+  padding-top: 10px;
+}
+
+/* Track (background of the scrollbar) */
+.scroll-ui::-webkit-scrollbar-track {
+  background: #05050500; /* color of scrollbar track */
+}
+
+/* Handle (the draggable part of the scrollbar) */
+.scroll-ui::-webkit-scrollbar-thumb {
+  background: #b7b5b5; /* color of scrollbar handle */
+  border-radius: 3px; /* border radius of scrollbar handle */
+}
+
+/* Handle on hover */
+.scroll-ui::-webkit-scrollbar-thumb:hover {
+  background: #555; /* color of scrollbar handle on hover */
+}

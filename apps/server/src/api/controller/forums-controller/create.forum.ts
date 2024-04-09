@@ -6,8 +6,7 @@ export const createForum = async (req: ProtectedRequest, res: Response) => {
   try {
     const userId = req.user;
 
-    const { title, description } = req.body;
-
+    const { title, description, tags } = req.body;
 
     if (!userId || !title) {
       return res.sendStatus(402);
@@ -15,10 +14,11 @@ export const createForum = async (req: ProtectedRequest, res: Response) => {
 
     const createForum = await database.forum.create({
       data: {
-        userId: userId!,
-        title: title!,
-        description: description!,
+        userId: userId,
+        title: title,
+        description: description,
         createdAt: new Date(),
+        tags,
       },
     });
 

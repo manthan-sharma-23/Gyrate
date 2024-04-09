@@ -4,6 +4,7 @@ import { BASE_URL } from "@/utils/config/config";
 export const createForum = async (forum: {
   title: string;
   description: string;
+  tags: string[];
 }) => {
   try {
     const response = await fetch(`${BASE_URL}/api/forum/create`, {

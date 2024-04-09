@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { ScrollArea } from "../ui/scroll-area";
 
 const RichTextEditor = ({
   value,
@@ -12,7 +13,7 @@ const RichTextEditor = ({
   const toolBarOptions = [
     ["bold", "italic", "underline", "strike"], // toggled buttons
     ["blockquote", "code-block"],
-    ["link", "image"],
+    ["link"],
     [{ header: 1 }, { header: 2 }], // custom button values
     [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
   ];
@@ -22,13 +23,14 @@ const RichTextEditor = ({
 
   return (
     <ReactQuill
+      placeholder="Enter you text here"
       modules={module}
       theme="snow"
       value={value}
       onChange={(v) => {
         setValue(v);
       }}
-      className="text-white h-[93.5%]"
+      className="text-white bg-transparent placeholder:text-white"
     />
   );
 };

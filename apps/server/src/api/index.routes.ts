@@ -16,7 +16,7 @@ router
   .use(cookieParser("helloworld"))
   .use(e.json())
   .use(bodyParser.json())
-  .use(bodyParser.urlencoded({ extended: false }))
+  .use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
   .use(morgan(":method :url :status :res[content-length] - :response-time ms"))
   .use("/auth", authRouter)
   .use("/forum", forumRouter)

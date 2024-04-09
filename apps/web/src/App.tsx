@@ -8,6 +8,9 @@ import { RecoilRoot } from "recoil";
 import ApplicationLayout from "./pages/layouts/ApplicationLayout";
 import Global from "./pages/views/global/Global";
 import Chat from "./pages/views/chat/Chat";
+import Forums from "./pages/views/global/forum/Forums";
+import GlobalNew from "./pages/views/global/views/GlobalNew";
+import CreateForum from "./pages/views/global/forum/CreateForum";
 
 const App = () => {
   return (
@@ -18,7 +21,9 @@ const App = () => {
             <Route path="/" element={<ApplicationLayout />}>
               <Route path="/" element={<Home />} />
               <Route path="/global" element={<Global />}>
-                <Route path="/global/:path" element={<Global />} />
+                <Route path="/global/forums" element={<Forums />} />
+                <Route path="/global/forums/create" element={<CreateForum />} />
+                <Route path="/global/:path" element={<GlobalNew />} />
               </Route>
               <Route path="/chat" element={<Chat />} />
             </Route>

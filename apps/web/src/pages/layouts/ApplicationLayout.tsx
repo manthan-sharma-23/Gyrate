@@ -33,7 +33,7 @@ const ApplicationLayout = () => {
         </nav>
         <Separator className="bg-white/10" />
 
-        <section className="h-[92vh] w-full flex flex-col justify-between items-center p-2 pb-1">
+        <div className="h-[92vh] w-full flex flex-col justify-between items-center p-2 pb-1">
           <div className="h-auto w-full flex flex-col text-[1.7rem] mt-2 items-center justify-start">
             {navItems.map((item) => (
               <Link to={item.href} key={item.href} className="mb-1">
@@ -68,7 +68,7 @@ const ApplicationLayout = () => {
               />
             </div>
           </div>
-        </section>
+        </div>
       </section>
       <Separator orientation="vertical" className="bg-white/10" />
       <section className="h-full w-[96.5vw] ">

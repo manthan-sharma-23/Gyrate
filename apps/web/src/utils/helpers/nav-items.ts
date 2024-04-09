@@ -24,26 +24,26 @@ export const sideIcons = [
   {
     name: "Forums",
     icon: MessagesSquare,
-    href: "forums",
+    href: "/global/forums",
   },
   {
     name: "Find mates",
     icon: Search,
-    href: "find",
+    href: "/global/find",
   },
   {
     name: "Events",
     icon: Sun,
-    href: "events",
+    href: "/global/events",
   },
   {
     name: "Invites",
     icon: MessageSquareDot,
-    href: "invites",
+    href: "/global/invites",
   },
   {
     name: "Profile",
     icon: User,
-    href: "profile",
+    href: "/global/profile",
   },
 ];

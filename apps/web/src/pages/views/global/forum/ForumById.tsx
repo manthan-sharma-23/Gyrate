@@ -2,13 +2,14 @@ import Loading from "@/components/ui/Loading";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetForumById } from "@/features/hooks/global/forum/useGetForumById";
 import { parseStringToHTML } from "@/utils/helpers/parse";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import moment from "moment";
 import { AiOutlineLike } from "react-icons/ai";
 import { BsReply } from "react-icons/bs";
+import { RxCross2 } from "react-icons/rx";
 import {
   ArrowBigDown,
   ArrowBigUp,
@@ -19,9 +20,18 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { commentOnForum } from "@/features/functions/forum/createComment";
+import {
+  CommentWithUser,
+  commentOnForum,
+} from "@/features/functions/forum/createComment";
 import { useRecoilValue } from "recoil";
 import { UserAtom } from "@/features/store/atom/user/user.atom";
+import { Button } from "@/components/ui/button";
+import {
+  CommentReplyWithUser,
+  replyToComment,
+} from "@/features/functions/forum/replyToComment";
+import { getRepliesToComment } from "@/features/functions/forum/getCommentReplies";
 
 const ForumById = () => {
   const { forumId } = useParams();
@@ -138,36 +148,159 @@ const ForumById = () => {
             </div>
             <div className="min-h-[10vh] w-full mt-4">
               {forum.Comments.map((comment) => (
-                <div className="min-h-[3rem] mb-10 w-[80%]  flex gap-2">
-                  <div className="h-auto w-[5%] flex items-center justify-center ">
-                    <img
-                      src={comment.User?.image}
-                      className="h-[2rem] rounded-full"
-                    />
-                  </div>
-                  <div className="h-[30%] w-full flex flex-col  ">
-                    <div className="flex gap-3">
-                      <p className="text-white/85 font-semibold text-xs">
-                        {comment.User.name}
-                      </p>
-                      <p className="text-xs text-white/60">
-                        {moment(comment.createdAt).fromNow()}
-                      </p>
-                    </div>
-                    <div className="flex justify-start text-white mt-2 items-center">
-                      {comment.comment}
-                    </div>
-                    <div className="h-[10%] flex text-[1.1rem] gap-2 mt-2">
-                      <AiOutlineLike className="hover:text-blue-500 duration-100 transition-all hover:scale-110 cursor-pointer" />
-                      <BsReply className="hover:text-blue-500 duration-100 transition-all hover:scale-110 cursor-pointer" />
-                    </div>
-                  </div>
-                </div>
+                <CommentsTSX comment={comment} />
               ))}
             </div>
           </div>
         </div>
       </ScrollArea>
+    </div>
+  );
+};
+
+const CommentsTSX = ({ comment }: { comment: CommentWithUser }) => {
+  const [isReply, setIsReply] = useState(false);
+  const [reply, setReply] = useState("");
+  const userId = useRecoilValue(UserAtom)?.id;
+  const [showReplies, setShowReplies] = useState(false);
+  const [replies, setReplies] = useState<CommentReplyWithUser[]>([]);
+  const [replyLoad, setReplyLoad] = useState(false);
+
+  useEffect(() => {
+    if (showReplies) {
+      setReplyLoad(true);
+      getRepliesToComment({ commentId: comment.id })
+        .then((data) => {
+          setReplyLoad(false);
+          if (data) {
+            setReplies(data);
+          } else {
+            setReplies([]);
+          }
+        })
+        .catch((err) => {
+          setReplyLoad(false);
+          console.log(err);
+          setReplies([]);
+        });
+    } else {
+      setReplies([]);
+    }
+
+    return () => {
+      setReplies([]);
+    };
+  }, [showReplies]);
+
+  const handleReply = () => {
+    setIsReply((c) => !c);
+  };
+
+  const submitReply = () => {
+    replyToComment({
+      userId: userId!,
+      commentId: comment.id,
+      comment: reply,
+    })
+      .then((data) => {
+        if (data) setReplies((v) => [data, ...v]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    setReply("");
+  };
+
+  return (
+    <div className="min-h-[3rem] mb-10 w-[80%]  flex gap-2 relative">
+      <div className="h-auto w-[5%] flex items-start pt-3 justify-center ">
+        <img src={comment.User?.image} className="h-[2rem] rounded-full" />
+      </div>
+      <div className="h-[30%] w-full flex flex-col  ">
+        <div className="flex gap-3">
+          <p className="text-white/85 font-semibold text-xs">
+            {comment.User.name}
+          </p>
+          <p className="text-xs text-white/60">
+            {moment(comment.createdAt).fromNow()}
+          </p>
+        </div>
+        <div className="flex justify-start text-white mt-2 items-center">
+          {comment.comment}
+        </div>
+        <div className="h-[10%] flex text-[1.1rem] gap-2 mt-2">
+          <AiOutlineLike className="hover:text-blue-500 duration-100 transition-all hover:scale-110 cursor-pointer" />
+          {isReply ? (
+            <RxCross2
+              onClick={handleReply}
+              className="hover:text-blue-500 duration-100 transition-all hover:scale-110 cursor-pointer"
+            />
+          ) : (
+            <BsReply
+              onClick={handleReply}
+              className="hover:text-blue-500 duration-100 transition-all hover:scale-110 cursor-pointer"
+            />
+          )}
+          <p
+            onClick={() => setShowReplies((v) => !v)}
+            className="text-white/55 text-xs ml-2 hover:text-blue-400 cursor-pointer"
+          >
+            {showReplies ? "Hide Replies" : "Show Replies"}
+          </p>
+        </div>
+        {isReply && (
+          <div className="h-auto w-full mt-2 pl-5 flex gap-2">
+            <Input
+              value={reply}
+              onChange={(e) => {
+                setReply(e.target.value);
+              }}
+              className=" w-[60%] outline-none border-0 ring-0 focus:ring-0 focus:border-0 focus-visible:outline-none focus:outline-none focus:border-b border-b rounded-none"
+              placeholder="Reply"
+            />
+            <Button
+              onClick={submitReply}
+              className="bg-transparent text-white hover:bg-white hover:text-black"
+            >
+              Post
+            </Button>
+          </div>
+        )}
+        {showReplies &&
+          (replyLoad ? (
+            <div className="h-[5vh] w-[60%]">
+              <Loading />
+            </div>
+          ) : (
+            <div className="h-auto w-[60%] flex flex-col items-start justify-center mt-5 pl-5">
+              {replies &&
+                replies.map((reply) => (
+                  <div className="h-auto w-full flex gap-2 mb-3">
+                    <div className="h-full w-[10%]  flex items-start justify-center ">
+                      <img
+                        src={reply.User?.image}
+                        className="h-[1.5rem] rounded-full"
+                      />
+                    </div>
+                    <div className="h-[30%] w-full flex flex-col  ">
+                      <div className="flex gap-3">
+                        <p className="text-white/85 font-semibold text-xs">
+                          {reply.User.name}
+                        </p>
+                        <p className="text-xs text-white/60">
+                          {moment(reply.createdAt).fromNow()}
+                        </p>
+                      </div>
+                      <div className="flex justify-start text-white mt-2 items-center">
+                        {reply.comment}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

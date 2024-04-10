@@ -40,7 +40,7 @@ const Forum = ({ forum }: { forum: ForumWithUser }) => {
       onClick={() => {
         navigate(forum.id);
       }}
-      className="h-auto w-full mb-5 border p-1 border-white/40 cursor-pointer  hover:border-brightorange transition-all"
+      className="h-auto w-full mb-5 border p-1 border-white/60 cursor-pointer  hover:border-brightorange/55 transition-all"
     >
       <div className="min-h-[25vh] w-full border  border-white/15 font-kode-mono p-2 px-3">
         <div className="w-full  min-h-[2.5rem] text-xl font-bold flex justify-between items-center">

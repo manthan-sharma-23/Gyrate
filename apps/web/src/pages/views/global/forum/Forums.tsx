@@ -8,7 +8,7 @@ const Forums = () => {
   const navigate = useNavigate();
   return (
     <div className="h-full w-full flex flex-col justify-start items-start  py-5 pl-[10vw]">
-      <div className="h-auto w-[60%]">
+      <div className="h-auto w-[80%] ">
         <section
           onClick={() => {
             navigate("/global/forums/create");

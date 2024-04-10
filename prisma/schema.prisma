@@ -8,17 +8,18 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(uuid())
-  email         String    @unique
-  name          String?
-  password      String?
-  image         String
-  accessToken   String?
-  provider      String    @default("email")
-  emailVerified Boolean   @default(false)
-  Forums        Forum[]
-  Comment       Comment[]
-  createdAt     DateTime  @default(now())
+  id             String           @id @default(uuid())
+  email          String           @unique
+  name           String?
+  password       String?
+  image          String
+  accessToken    String?
+  provider       String           @default("email")
+  emailVerified  Boolean          @default(false)
+  Forums         Forum[]
+  Comment        Comment[]
+  createdAt      DateTime         @default(now())
+  CommentReplies CommentReplies[]
 }
 
 model Forum {
@@ -35,11 +36,22 @@ model Forum {
 }
 
 model Comment {
+  id             String           @id @default(cuid())
+  comment        String
+  userId         String
+  User           User             @relation(fields: [userId], references: [id])
+  forumId        String
+  Forum          Forum            @relation(fields: [forumId], references: [id])
+  createdAt      DateTime         @default(now())
+  CommentReplies CommentReplies[]
+}
+
+model CommentReplies {
   id        String   @id @default(cuid())
+  Comment   Comment  @relation(fields: [commentId], references: [id])
+  commentId String
   comment   String
-  userId    String
   User      User     @relation(fields: [userId], references: [id])
-  forumId   String
-  Forum     Forum    @relation(fields: [forumId], references: [id])
   createdAt DateTime @default(now())
+  userId    String
 }

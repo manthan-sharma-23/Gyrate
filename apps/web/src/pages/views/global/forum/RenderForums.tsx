@@ -8,6 +8,7 @@ import { IoBookmarkOutline } from "react-icons/io5";
 import { GoShareAndroid } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import Loading from "@/components/ui/Loading";
+import { Badge } from "@/components/ui/badge";
 
 const RenderForums = () => {
   const { forums, loading } = useGetForums();
@@ -42,7 +43,6 @@ const Forum = ({ forum }: { forum: ForumWithUser }) => {
       className="h-auto w-full mb-5 border p-1 border-white/40 cursor-pointer  hover:border-brightorange transition-all"
     >
       <div className="min-h-[25vh] w-full border  border-white/15 font-kode-mono p-2 px-3">
-        {/* {parseStringToHTML((forum.description || "").slice(0, 100))} */}
         <div className="w-full  min-h-[2.5rem] text-xl font-bold flex justify-between items-center">
           <p>// {forum.title}</p>
         </div>
@@ -60,14 +60,24 @@ const Forum = ({ forum }: { forum: ForumWithUser }) => {
             <p>{moment(forum.createdAt).fromNow()}</p>
           </div>
         </div>
+        <div className="h-auto w-auto flex flex-wrap gap-2 my-1 font-poppins">
+          {forum.tags &&
+            forum.tags.map((tag) => (
+              <Badge className="bg-white/80 text-black">{tag}</Badge>
+            ))}
+        </div>
         <div className="bg-black p-2 rounded-md h-[10rem] overflow-hidden text-sm text-white/60 mt-4">
           {description}
         </div>
         <div className="h-[2rem] flex justify-between items-center overflow-hidden text-sm text-white/60 mt-3">
           <div className="w-1/2 h-full flex items-center font-sans gap-1">
-            <p className="hover:text-yellow-400 duration-100 text-blue-500">0 Upvotes</p>
+            <p className="hover:text-yellow-400 duration-100 text-blue-500">
+              0 Upvotes
+            </p>
             <FaCircle className="text-[4px] text-white/30" />
-            <p className="hover:text-yellow-400 duration-100 text-blue-500">0 Comments</p>
+            <p className="hover:text-yellow-400 duration-100 text-blue-500">
+              0 Comments
+            </p>
           </div>
           <div className="w-1/2 h-full flex items-center justify-end text-lg font-sans gap-3">
             <IoBookmarkOutline className="hover:scale-[1.08] transition-all duration-100 hover:text-yellow-400" />

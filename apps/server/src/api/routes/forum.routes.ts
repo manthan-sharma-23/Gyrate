@@ -12,6 +12,8 @@ import { unUpVoteForum } from "../controller/forums-controller/user-forums/unUpV
 import { unDownVoteForum } from "../controller/forums-controller/user-forums/unDownVote";
 import { getUserForum } from "../controller/forums-controller/user-forums/getUserForum";
 import { getForumComments } from "../controller/forums-controller/getComments";
+import { bookMarkForum } from "../controller/forums-controller/user-forums/bookMark";
+import { unBookMarkForum } from "../controller/forums-controller/user-forums/unBookMark";
 
 const router: Router = Router();
 
@@ -29,5 +31,7 @@ router.patch("/upvote", authUser, upvoteForum);
 router.patch("/downvote", authUser, downvoteForum);
 router.patch("/undownvote", authUser, unDownVoteForum);
 router.patch("/unupvote", authUser, unUpVoteForum);
+router.patch("/bookMark", authUser, bookMarkForum);
+router.patch("/unbookMark", authUser, unBookMarkForum);
 
 export default router;

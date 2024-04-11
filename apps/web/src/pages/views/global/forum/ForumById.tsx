@@ -44,6 +44,10 @@ import { downVoteForum } from "@/features/functions/forum/vote/downvoteForum";
 import { unDownVoteForum } from "@/features/functions/forum/vote/unDownvoteForum";
 import { unUpVoteForum } from "@/features/functions/forum/vote/unUpvoteForum";
 import { useGetComments } from "@/features/hooks/global/forum/useGetComments";
+import { unBookMarkForum } from "@/features/functions/forum/vote/unbookmark.Forum";
+import { bookMarkForum } from "@/features/functions/forum/vote/bookmarkForum";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
+import { cn } from "@/lib/utils";
 
 const ForumById = () => {
   const { forumId } = useParams();
@@ -104,6 +108,24 @@ const ForumById = () => {
         }
       });
     }
+  };
+  const handleBookMark = () => {
+    bookMarkForum({ forumId: forum.id })
+      .then((data) => {
+        setUserForum(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const handleUnBookMark = () => {
+    unBookMarkForum({ forumId: forum.id })
+      .then((data) => {
+        setUserForum(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const description = parseStringToHTML(forum.description || "");
@@ -194,12 +216,26 @@ const ForumById = () => {
                   <p>{forum.downvotes}</p>
                 </div>
               </div>
-              <div className="w-1/2 h-full flex justify-end items-center gap-2">
-                <div className="flex">
-                  <Bookmark className="hover:text-yellow-400 cursor-pointer hover:scale-110 duration-100" />
+              <div className="w-1/2 h-full  flex justify-end items-end  gap-2">
+                <div className=" text-[1rem] flex items-center  h-full">
+                  {userForum?.isBookMarked ? (
+                    <FaBookmark
+                      onClick={handleUnBookMark}
+                      className={cn(
+                        "cursor-pointer hover:scale-[1.08] transition-all duration-100 hover:text-yellow-400"
+                      )}
+                    />
+                  ) : (
+                    <FaRegBookmark
+                      onClick={handleBookMark}
+                      className={cn(
+                        "cursor-pointer hover:scale-[1.08] transition-all duration-100 hover:text-yellow-400"
+                      )}
+                    />
+                  )}
                 </div>
-                <div className="flex">
-                  <Share2 className="hover:text-rose-400 cursor-pointer hover:scale-105 duration-100" />
+                <div className="flex justify-end items-end h-full">
+                  <Share2 className="hover:text-rose-400 cursor-pointer hover:scale-105 duration-100 h-full" />
                 </div>
               </div>
             </div>

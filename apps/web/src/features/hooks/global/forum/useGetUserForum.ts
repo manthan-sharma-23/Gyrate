@@ -29,3 +29,29 @@ export const useGetUserForum = () => {
 
   return { userForum, setUserForum, loading, setLoading };
 };
+
+export const useGetUserForumByPass = ({ forumId }: { forumId: string }) => {
+  const [userForum, setUserForum] = useState<userForumWithDetails | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (forumId) {
+      setLoading(true);
+      getUserForum({ forumId })
+        .then((data) => {
+          if (data) setUserForum(data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    }
+
+    return () => {
+      setUserForum(null);
+    };
+  }, [forumId]);
+
+  return { userForum, setUserForum, loading, setLoading };
+};

@@ -17,3 +17,9 @@ export interface root_users_map {
   socket: WebSocket;
   userId: string;
 }
+
+export const forumsOrder = {
+  recent: "recent",
+  relevant: "relevant",
+  trending: "trending",
+};

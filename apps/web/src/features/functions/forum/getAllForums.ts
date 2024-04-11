@@ -6,13 +6,14 @@ export interface ForumWithUser extends Forum {
   Comments: unknown[];
 }
 
-export const getForums = async () => {
+export const getForums = async ({ orderBy }: { orderBy: string }) => {
   try {
     const response = await fetch(`${BASE_URL}/api/forum/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
+        orderBy,
       },
     });
 

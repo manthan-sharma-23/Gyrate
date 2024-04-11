@@ -8,6 +8,14 @@ import { GoShareAndroid } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import Loading from "@/components/ui/Loading";
 import { Badge } from "@/components/ui/badge";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+import {
+  useGetUserForum,
+  useGetUserForumByPass,
+} from "@/features/hooks/global/forum/useGetUserForum";
+import { cn } from "@/lib/utils";
+import { bookMarkForum } from "@/features/functions/forum/vote/bookmarkForum";
+import { unBookMarkForum } from "@/features/functions/forum/vote/unbookmark.Forum";
 
 const RenderForums = () => {
   const { forums, loading } = useGetForums();
@@ -32,6 +40,7 @@ const RenderForums = () => {
 const Forum = ({ forum }: { forum: ForumWithUser }) => {
   const description = parseStringToHTML(forum.description || "");
   const navigate = useNavigate();
+  const { userForum } = useGetUserForumByPass({ forumId: forum.id });
 
   return (
     <div
@@ -71,15 +80,27 @@ const Forum = ({ forum }: { forum: ForumWithUser }) => {
         <div className="h-[2rem] flex justify-between items-center overflow-hidden text-sm text-white/60 mt-3">
           <div className="w-1/2 h-full flex items-center font-sans gap-1">
             <p className="hover:text-yellow-400 duration-100 text-blue-500">
-              0 Upvotes
+              {forum.upvotes} Upvotes
             </p>
             <FaCircle className="text-[4px] text-white/30" />
             <p className="hover:text-yellow-400 duration-100 text-blue-500">
-              0 Comments
+              {forum.Comments.length} Comments
             </p>
           </div>
           <div className="w-1/2 h-full flex items-center justify-end text-lg font-sans gap-3">
-            <IoBookmarkOutline className="hover:scale-[1.08] transition-all duration-100 hover:text-yellow-400" />
+            {userForum?.isBookMarked ? (
+              <FaBookmark
+                className={cn(
+                  "hover:scale-[1.08] transition-all duration-100 hover:text-yellow-400"
+                )}
+              />
+            ) : (
+              <FaRegBookmark
+                className={cn(
+                  "hover:scale-[1.08] transition-all duration-100 hover:text-yellow-400"
+                )}
+              />
+            )}
             <GoShareAndroid className="hover:scale-[1.15] transition-all duration-100 hover:text-yellow-400" />
           </div>
         </div>

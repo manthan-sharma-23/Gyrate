@@ -3,6 +3,7 @@ import { BASE_URL } from "@/utils/config/config";
 
 export interface ForumWithUser extends Forum {
   User: User;
+  Comments: unknown[];
 }
 
 export const getForums = async () => {

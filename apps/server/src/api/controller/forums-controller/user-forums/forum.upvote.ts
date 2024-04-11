@@ -58,12 +58,12 @@ export const upvoteForum = async (req: ProtectedRequest, res: Response) => {
         User: true,
         Forum: {
           include: {
+            User: true,
             Comments: {
-              include: {
-                User: true,
+              select: {
+                _count: true,
               },
             },
-            User: true,
           },
         },
       },

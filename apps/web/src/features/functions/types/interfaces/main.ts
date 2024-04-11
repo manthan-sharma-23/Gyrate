@@ -1,7 +1,6 @@
 import { User, UserForum } from "@prisma/client";
-import { ForumWithComments } from "../../forum/getForumById";
-
+import { ForumWithUser } from "../../forum/getAllForums";
 export interface userForumWithDetails extends UserForum {
   User: User;
-  Forum: ForumWithComments;
+  Forum: ForumWithUser;
 }

@@ -43,6 +43,7 @@ import { upVoteForum } from "@/features/functions/forum/vote/upvoteForum";
 import { downVoteForum } from "@/features/functions/forum/vote/downvoteForum";
 import { unDownVoteForum } from "@/features/functions/forum/vote/unDownvoteForum";
 import { unUpVoteForum } from "@/features/functions/forum/vote/unUpvoteForum";
+import { useGetComments } from "@/features/hooks/global/forum/useGetComments";
 
 const ForumById = () => {
   const { forumId } = useParams();
@@ -51,6 +52,9 @@ const ForumById = () => {
   const userId = useRecoilValue(UserAtom)?.id;
   const [commenting, setCommenting] = useState(false);
   const { userForum, setUserForum } = useGetUserForum();
+  const { comments, setComments } = useGetComments();
+
+  console.log(forum);
 
   if (loading || forum === null) {
     return (
@@ -110,9 +114,8 @@ const ForumById = () => {
     setCommenting(true);
     commentOnForum({ comment, forumId, userId })
       .then((data) => {
-        console.log(data);
         if (data) {
-          setForum({ ...forum, Comments: [data, ...forum.Comments] });
+          setComments((v) => [data, ...v]);
         }
         setCommenting(false);
       })
@@ -201,8 +204,8 @@ const ForumById = () => {
               </div>
             </div>
             <div className="w-full flex gap-2 items-center justify-between font-kode-mono text-lg my-2 mt-4 overflow-hidden">
-              <p>COMMENTS</p>
-              <Separator className="w-[90%] bg-white/30" />
+              <p className="flex w-auto">COMMENTS {forum.Comments.length}</p>
+              <Separator className="w-[85%] bg-white/30" />
             </div>
             <div className=" flex mt-3  w-full gap-3">
               <Input
@@ -221,7 +224,7 @@ const ForumById = () => {
               </button>
             </div>
             <div className="min-h-[10vh] w-full mt-4">
-              {forum.Comments.map((comment) => (
+              {comments.map((comment) => (
                 <CommentsTSX comment={comment} />
               ))}
             </div>

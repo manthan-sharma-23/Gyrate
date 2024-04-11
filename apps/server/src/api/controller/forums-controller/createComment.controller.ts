@@ -1,6 +1,8 @@
 import { Response } from "express";
 import { ProtectedRequest } from "src/utils/interfaces/express";
 import database from "database";
+import redis from "src/services/Redis/redis";
+import { cache_tags } from "src/utils/types";
 
 export const createCommentForum = async (
   req: ProtectedRequest,
@@ -11,18 +13,34 @@ export const createCommentForum = async (
 
     if (!forumId || !comment || !userId) return res.sendStatus(402);
 
-    const commentCreateQuery = await database.comment.create({
-      data: {
-        userId,
-        comment,
-        forumId,
-      },
-      include: {
-        User: true,
-      },
-    });
+    await redis.del(cache_tags.comments + forumId);
 
-    return res.json(commentCreateQuery);
+    const [createComment, allComments] = await database.$transaction([
+      database.comment.create({
+        data: {
+          userId,
+          comment,
+          forumId,
+        },
+        include: {
+          User: true,
+        },
+      }),
+      database.comment.findMany({
+        where: {
+          forumId: forumId,
+        },
+        include: {
+          User: true,
+        },
+      }),
+    ]);
+
+    res.json(createComment);
+
+    await redis.set(cache_tags.comments + forumId, JSON.stringify(allComments));
+
+    return;
   } catch (error) {
     return res.sendStatus(500);
   }

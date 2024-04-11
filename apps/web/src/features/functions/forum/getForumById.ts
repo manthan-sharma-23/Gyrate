@@ -1,11 +1,7 @@
 import { Comment, Forum, User } from "@prisma/client";
 import { BASE_URL } from "@/utils/config/config";
 import { CommentWithUser } from "./createComment";
-
-export interface ForumWithComments extends Forum {
-  User: User;
-  Comments: CommentWithUser[];
-}
+import { ForumWithUser } from "@/features/functions/forum/getAllForums";
 
 export const getForumById = async ({ forumId }: { forumId: string }) => {
   try {
@@ -19,7 +15,7 @@ export const getForumById = async ({ forumId }: { forumId: string }) => {
 
     if (!response.ok) throw Error();
 
-    const data: ForumWithComments = await response.json();
+    const data: ForumWithUser = await response.json();
 
     return data;
   } catch (error) {

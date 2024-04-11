@@ -11,12 +11,14 @@ import { downvoteForum } from "../controller/forums-controller/user-forums/forum
 import { unUpVoteForum } from "../controller/forums-controller/user-forums/unUpVote";
 import { unDownVoteForum } from "../controller/forums-controller/user-forums/unDownVote";
 import { getUserForum } from "../controller/forums-controller/user-forums/getUserForum";
+import { getForumComments } from "../controller/forums-controller/getComments";
 
 const router: Router = Router();
 
 router.post("/create", authUser, createForum);
 router.post("/comment", authUser, createCommentForum);
 router.post("/reply", authUser, replyToComment);
+router.get("/:forumId/comments", authUser, getForumComments);
 router.get("/", authUser, getForums);
 router.get("/replies/:commentId", authUser, getCommentReplies);
 router.get("/:forumId", authUser, getForumById);

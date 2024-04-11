@@ -13,11 +13,8 @@ export const getForumById = async (req: ProtectedRequest, res: Response) => {
       include: {
         User: true,
         Comments: {
-          include: {
-            User: true,
-          },
-          orderBy: {
-            createdAt: "desc",
+          select: {
+            _count: true,
           },
         },
       },

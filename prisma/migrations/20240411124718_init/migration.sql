@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "UserForum" ALTER COLUMN "isUpvoted" DROP NOT NULL,
+ALTER COLUMN "isDownvoted" DROP NOT NULL,
+ALTER COLUMN "isBookMarked" DROP NOT NULL;

@@ -110,11 +110,11 @@ const ForumById = () => {
               <div className="w-1/2 h-full flex items-center gap-2">
                 <div className="flex">
                   <ArrowBigUp className=" text-lg hover:text-blue-400 cursor-pointer hover:scale-110 duration-100" />
-                  <p>30</p>
+                  <p>{forum.upvotes}</p>
                 </div>
                 <div className="flex">
                   <ArrowBigDown className=" text-lg hover:text-blue-400 cursor-pointer hover:scale-110 duration-100" />
-                  <p>90</p>
+                  <p>{forum.downvotes}</p>
                 </div>
               </div>
               <div className="w-1/2 h-full flex justify-end items-center gap-2">

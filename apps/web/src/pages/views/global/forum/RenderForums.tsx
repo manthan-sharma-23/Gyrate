@@ -2,7 +2,6 @@ import { ForumWithUser } from "@/features/functions/forum/getAllForums";
 import { useGetForums } from "@/features/hooks/global/forum/useGetForums";
 import { parseStringToHTML } from "@/utils/helpers/parse";
 import moment from "moment";
-import React from "react";
 import { FaCircle } from "react-icons/fa6";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { GoShareAndroid } from "react-icons/go";
@@ -40,9 +39,9 @@ const Forum = ({ forum }: { forum: ForumWithUser }) => {
       onClick={() => {
         navigate(forum.id);
       }}
-      className="h-auto w-full mb-5 border p-1 border-white/60 cursor-pointer  hover:border-brightorange/55 transition-all"
+      className="h-auto w-full mb-5 border p-1 border-white/40 cursor-pointer  hover:border-brightorange/55 transition-all"
     >
-      <div className="min-h-[25vh] w-full border  border-white/15 font-kode-mono p-2 px-3">
+      <div className="min-h-[20vh] w-full border  border-white/15 font-kode-mono p-2 px-3">
         <div className="w-full  min-h-[2.5rem] text-xl font-bold flex justify-between items-center">
           <p>// {forum.title}</p>
         </div>
@@ -66,7 +65,7 @@ const Forum = ({ forum }: { forum: ForumWithUser }) => {
               <Badge className="bg-white/80 text-black">{tag}</Badge>
             ))}
         </div>
-        <div className="bg-black p-2 rounded-md h-[10rem] overflow-hidden text-sm text-white/60 mt-4">
+        <div className="bg-black p-2 rounded-md h-[6rem] overflow-hidden text-sm text-white/60 mt-4">
           {description}
         </div>
         <div className="h-[2rem] flex justify-between items-center overflow-hidden text-sm text-white/60 mt-3">

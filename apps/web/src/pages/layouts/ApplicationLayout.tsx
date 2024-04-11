@@ -11,12 +11,12 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { useWideWebSocket } from "@/features/hooks/root/useWideWebSocket";
 
 const ApplicationLayout = () => {
   const { user, loading } = useGetUser();
   const { pathname } = useLocation();
-
-  console.log(pathname);
+  useWideWebSocket();
 
   if (loading) {
     return (
@@ -41,7 +41,7 @@ const ApplicationLayout = () => {
                   <Tooltip>
                     <TooltipTrigger
                       className={cn(
-                        "p-0 rounded-md hover:bg-white/5 font-thin text-white/70  h-[2.6rem] w-[2.6rem] flex justify-center items-center",
+                        "p-0 text-[1.4rem] rounded-md hover:bg-white/5 font-thin text-white/70  h-[2.6rem] w-[2.6rem] flex justify-center items-center",
                         pathname.startsWith(item.href) &&
                           "bg-white/5 text-white"
                       )}

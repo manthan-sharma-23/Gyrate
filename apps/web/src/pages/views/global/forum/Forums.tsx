@@ -8,7 +8,7 @@ const Forums = () => {
   const navigate = useNavigate();
   return (
     <div className="h-full w-full flex flex-col justify-start items-start  py-5 pl-[10vw]">
-      <div className="h-auto w-[80%] ">
+      <div className="h-auto w-[66%] ">
         <section
           onClick={() => {
             navigate("/global/forums/create");
@@ -27,11 +27,11 @@ const Forums = () => {
         </section>
       </div>
       <ScrollArea className="h-full w-full mt-2">
-        <div className="h-full w-full p-0  flex justify-start items-center">
-          <div className="h-full w-[60%] flex flex-col justify-start items-center">
+        <div className="h-full  w-full p-0  flex justify-start items-center">
+          <div className="h-full w-[50%] flex flex-col justify-start items-center">
             <section className="h-[5vh] w-full flex justify-between items-center gap-2  border-white/35">
               <div className="h-full w-[30vw]">
-                <ul className="flex gap-4 h-full w-full justify-start items-center text-white/60">
+                <ul className="flex gap-2 h-full w-full justify-start items-center text-white/60">
                   <li className="h-auto w-auto flex justify-center text-brightorange  items-center py-1 rounded-md px-3 cursor-pointer">
                     Recent
                   </li>

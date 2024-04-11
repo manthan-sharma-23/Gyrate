@@ -1,8 +1,19 @@
-// packages/types/src/index.ts
+import { WebSocket } from "ws";
+export interface SocketMessage {
+  type: "JOIN" | "INFO" | "REGISTER" | "NOTIFICATION" | "MESSAGE" | "ALERT";
+  payload: any;
+}
 
-export type Workspace = {
-  name: string;
-  version: string;
+export const _redis_channels = {
+  general: "GENERAL",
+  notification: "notification",
 };
 
-export const a = 3;
+export interface user_register_payload {
+  userId: string;
+}
+
+export interface root_users_map {
+  socket: WebSocket;
+  userId: string;
+}

@@ -31,8 +31,29 @@ export const unUpVoteForum = async (req: ProtectedRequest, res: Response) => {
       }),
     ]);
 
-    return res.sendStatus(200);
+    const data = await database.userForum.findFirstOrThrow({
+      where: {
+        userId,
+        forumId,
+      },
+      include: {
+        User: true,
+        Forum: {
+          include: {
+            Comments: {
+              include: {
+                User: true,
+              },
+            },
+            User: true,
+          },
+        },
+      },
+    });
+
+    return res.json(data);
   } catch (error) {
+    console.log(error);
     return res.sendStatus(500);
   }
 };

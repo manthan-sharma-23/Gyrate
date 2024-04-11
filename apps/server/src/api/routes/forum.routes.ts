@@ -10,6 +10,7 @@ import { upvoteForum } from "../controller/forums-controller/user-forums/forum.u
 import { downvoteForum } from "../controller/forums-controller/user-forums/forum.downVote";
 import { unUpVoteForum } from "../controller/forums-controller/user-forums/unUpVote";
 import { unDownVoteForum } from "../controller/forums-controller/user-forums/unDownVote";
+import { getUserForum } from "../controller/forums-controller/user-forums/getUserForum";
 
 const router: Router = Router();
 
@@ -19,6 +20,9 @@ router.post("/reply", authUser, replyToComment);
 router.get("/", authUser, getForums);
 router.get("/replies/:commentId", authUser, getCommentReplies);
 router.get("/:forumId", authUser, getForumById);
+
+// voting algo
+router.get("/userForum/:forumId", authUser, getUserForum);
 router.patch("/upvote", authUser, upvoteForum);
 router.patch("/downvote", authUser, downvoteForum);
 router.patch("/undownvote", authUser, unDownVoteForum);

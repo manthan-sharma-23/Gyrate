@@ -5,13 +5,13 @@ import database from "database";
 export const getUserForum = async (req: ProtectedRequest, res: Response) => {
   try {
     const userId = req.user;
-    const { forumId } = req.body;
+    const { forumId } = req.params;
 
     if (!userId || !forumId) {
       return res.sendStatus(403);
     }
 
-    const userForum = await database.userForum.findFirstOrThrow({
+    const data = await database.userForum.findFirstOrThrow({
       where: {
         userId,
         forumId,
@@ -20,16 +20,18 @@ export const getUserForum = async (req: ProtectedRequest, res: Response) => {
         User: true,
         Forum: {
           include: {
-            Comments: true,
+            Comments: {
+              include: {
+                User: true,
+              },
+            },
             User: true,
           },
         },
       },
     });
 
-    
-
-    return res.json(userForum);
+    return res.json(data);
   } catch (error) {
     return res.sendStatus(500);
   }

@@ -11,6 +11,12 @@ import { AiOutlineLike } from "react-icons/ai";
 import { BsReply } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import {
+  BiSolidDownvote,
+  BiUpvote,
+  BiDownvote,
+  BiSolidUpvote,
+} from "react-icons/bi";
+import {
   ArrowBigDown,
   ArrowBigUp,
   Bookmark,
@@ -32,6 +38,11 @@ import {
   replyToComment,
 } from "@/features/functions/forum/replyToComment";
 import { getRepliesToComment } from "@/features/functions/forum/getCommentReplies";
+import { useGetUserForum } from "@/features/hooks/global/forum/useGetUserForum";
+import { upVoteForum } from "@/features/functions/forum/vote/upvoteForum";
+import { downVoteForum } from "@/features/functions/forum/vote/downvoteForum";
+import { unDownVoteForum } from "@/features/functions/forum/vote/unDownvoteForum";
+import { unUpVoteForum } from "@/features/functions/forum/vote/unUpvoteForum";
 
 const ForumById = () => {
   const { forumId } = useParams();
@@ -39,6 +50,7 @@ const ForumById = () => {
   const [comment, setComment] = useState<string>("");
   const userId = useRecoilValue(UserAtom)?.id;
   const [commenting, setCommenting] = useState(false);
+  const { userForum, setUserForum } = useGetUserForum();
 
   if (loading || forum === null) {
     return (
@@ -47,6 +59,48 @@ const ForumById = () => {
       </div>
     );
   }
+
+  const handleUpvote = () => {
+    if (forumId) {
+      upVoteForum({ forumId }).then((data) => {
+        if (data) {
+          console.log(data);
+          setUserForum(data);
+          setForum(data.Forum);
+        }
+      });
+    }
+  };
+  const handleDownvote = () => {
+    if (forumId) {
+      downVoteForum({ forumId }).then((data) => {
+        if (data) {
+          setUserForum(data);
+          setForum(data.Forum);
+        }
+      });
+    }
+  };
+  const handleUnDownvote = () => {
+    if (forumId && userForum) {
+      unDownVoteForum({ forumId, userForumId: userForum.id }).then((data) => {
+        if (data) {
+          setUserForum(data);
+          setForum(data.Forum);
+        }
+      });
+    }
+  };
+  const handleUnUpvote = () => {
+    if (forumId && userForum) {
+      unUpVoteForum({ forumId, userForumId: userForum.id }).then((data) => {
+        if (data) {
+          setUserForum(data);
+          setForum(data.Forum);
+        }
+      });
+    }
+  };
 
   const description = parseStringToHTML(forum.description || "");
 
@@ -108,12 +162,32 @@ const ForumById = () => {
             </div>
             <div className=" h-[3rem] w-full  flex text-white/70">
               <div className="w-1/2 h-full flex items-center gap-2">
-                <div className="flex">
-                  <ArrowBigUp className=" text-lg hover:text-blue-400 cursor-pointer hover:scale-110 duration-100" />
+                <div className="flex items-center gap-1">
+                  {userForum?.isUpvoted ? (
+                    <BiSolidUpvote
+                      onClick={handleUnUpvote}
+                      className=" text-lg hover:text-blue-400 cursor-pointer hover:scale-110 duration-100"
+                    />
+                  ) : (
+                    <BiUpvote
+                      onClick={handleUpvote}
+                      className=" text-lg hover:text-blue-400 cursor-pointer hover:scale-110 duration-100"
+                    />
+                  )}
                   <p>{forum.upvotes}</p>
                 </div>
-                <div className="flex">
-                  <ArrowBigDown className=" text-lg hover:text-blue-400 cursor-pointer hover:scale-110 duration-100" />
+                <div className="flex items-center gap-1">
+                  {userForum?.isDownvoted ? (
+                    <BiSolidDownvote
+                      onClick={handleUnDownvote}
+                      className=" text-lg hover:text-blue-400 cursor-pointer hover:scale-110 duration-100"
+                    />
+                  ) : (
+                    <BiDownvote
+                      onClick={handleDownvote}
+                      className=" text-lg hover:text-blue-400 cursor-pointer hover:scale-110 duration-100"
+                    />
+                  )}
                   <p>{forum.downvotes}</p>
                 </div>
               </div>

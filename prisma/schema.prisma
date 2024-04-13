@@ -8,19 +8,24 @@ datasource db {
 }
 
 model User {
-  id             String           @id @default(uuid())
-  email          String           @unique
-  name           String?
-  password       String?
-  image          String
-  accessToken    String?
-  provider       String           @default("email")
-  emailVerified  Boolean          @default(false)
-  Forums         Forum[]
-  Comment        Comment[]
-  createdAt      DateTime         @default(now())
-  CommentReplies CommentReplies[]
-  UserForums     UserForum[]
+  id                 String           @id @default(uuid())
+  email              String           @unique
+  name               String?
+  password           String?
+  image              String
+  accessToken        String?
+  provider           String           @default("email")
+  emailVerified      Boolean          @default(false)
+  Forums             Forum[]
+  Comment            Comment[]
+  createdAt          DateTime         @default(now())
+  CommentReplies     CommentReplies[]
+  UserForums         UserForum[]
+  currentRole        String?          @default("Human")
+  country            String?          @default("Anonymous")
+  languages          String[]         @default(["English"])
+  interestedSubjects String[]
+  isActive           Boolean?         @default(true)
 }
 
 model Forum {
@@ -40,13 +45,13 @@ model Forum {
 }
 
 model UserForum {
-  id           String  @id @default(cuid())
+  id           String   @id @default(cuid())
   isUpvoted    Boolean? @default(false)
   isDownvoted  Boolean? @default(false)
   isBookMarked Boolean? @default(false)
-  User         User    @relation(fields: [userId], references: [id])
+  User         User     @relation(fields: [userId], references: [id])
   userId       String
-  Forum        Forum   @relation(fields: [forumId], references: [id])
+  Forum        Forum    @relation(fields: [forumId], references: [id])
   forumId      String
 }
 

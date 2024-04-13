@@ -3,3 +3,9 @@ export interface AuthInputForm {
   email: string;
   password: string;
 }
+
+export const profileNav = {
+  acccount: "account",
+  uploads: "uploads",
+  interactions: "interactions",
+};

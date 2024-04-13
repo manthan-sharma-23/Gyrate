@@ -61,12 +61,12 @@ const ApplicationLayout = () => {
           </div>
 
           <div className="h-[5.5vh] w-full top-1 relative">
-            <div className="border rounded-md border-white/20 p-1">
+            <Link to="/profile">
               <img
                 src={user?.image}
-                className="rounded-md overflow-hidden opacity-75  cursor-pointer hover:opacity-100 border border-white/10 "
+                className=" p-1 rounded-md overflow-hidden opacity-75  cursor-pointer hover:opacity-100 border border-white/10 "
               />
-            </div>
+            </Link>
           </div>
         </div>
       </section>

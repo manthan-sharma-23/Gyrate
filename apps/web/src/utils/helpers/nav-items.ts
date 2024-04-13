@@ -1,11 +1,8 @@
 import { PiChatCircleBold, PiGlobeHemisphereEast } from "react-icons/pi";
-import {
-  MessageSquareDot,
-  MessagesSquare,
-  Search,
-  Sun,
-  User,
-} from "lucide-react";
+import { MessageSquareDot, MessagesSquare, Search, Sun } from "lucide-react";
+import { MdOutlinePerson2 } from "react-icons/md";
+import { GiCloudUpload } from "react-icons/gi";
+import { AiFillInteraction } from "react-icons/ai";
 
 export const navItems = [
   {
@@ -41,9 +38,18 @@ export const sideIcons = [
     icon: MessageSquareDot,
     href: "/global/invites",
   },
+];
+export const ProfilePageSideIcons = [
   {
-    name: "Profile",
-    icon: User,
-    href: "/global/profile",
+    name: "Account",
+    icon: MdOutlinePerson2,
+  },
+  {
+    name: "Uploads",
+    icon: GiCloudUpload,
+  },
+  {
+    name: "Interactions",
+    icon: AiFillInteraction,
   },
 ];

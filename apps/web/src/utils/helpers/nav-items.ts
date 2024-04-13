@@ -4,18 +4,18 @@ import { MdOutlinePerson2 } from "react-icons/md";
 import { GiCloudUpload } from "react-icons/gi";
 import { AiFillInteraction } from "react-icons/ai";
 
-export const navItems = [
-  {
-    href: "/global",
-    icon: PiGlobeHemisphereEast,
-    name: "Global",
-  },
-  {
-    href: "/chat",
-    icon: PiChatCircleBold,
-    name: "Chat",
-  },
-];
+// export const navItems = [
+//   {
+//     href: "/global",
+//     icon: PiGlobeHemisphereEast,
+//     name: "Global",
+//   },
+//   {
+//     href: "/chat",
+//     icon: PiChatCircleBold,
+//     name: "Chat",
+//   },
+// ];
 
 export const sideIcons = [
   {
@@ -53,3 +53,4 @@ export const ProfilePageSideIcons = [
     icon: AiFillInteraction,
   },
 ];
+

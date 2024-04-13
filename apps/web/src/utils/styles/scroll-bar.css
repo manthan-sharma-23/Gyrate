@@ -12,11 +12,11 @@
 
 /* Handle (the draggable part of the scrollbar) */
 .scroll-ui::-webkit-scrollbar-thumb {
-  background: #b7b5b5; /* color of scrollbar handle */
+  background: #243727; /* color of scrollbar handle */
   border-radius: 3px; /* border radius of scrollbar handle */
 }
 
 /* Handle on hover */
 .scroll-ui::-webkit-scrollbar-thumb:hover {
-  background: #555; /* color of scrollbar handle on hover */
+  background: #132906; /* color of scrollbar handle on hover */
 }

@@ -25,7 +25,9 @@ module.exports = {
         md: "1rem"
       },
       colors: {
-        blackdark: '#111113',
+        darkwhite: "#3B4345",
+        lightolive: "#223237",
+        darkblack: '#0B1416',
         darkbrown: '#1F1513',
         darkorange: '#4E1511',
         brightorange: '#E54D2E',

@@ -22,6 +22,9 @@ const App = () => {
           <Routes>
             <Route path="/" element={<ApplicationLayout />}>
               <Route path="/" element={<Home />} />
+              <Route path="/f/chat" element={<Chat />} />
+              <Route path="/f/trending" element={<Chat />} />
+              <Route path="/f/all" element={<Chat />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/global" element={<Global />}>
                 <Route path="/global/forums/:forumId" element={<ForumById />} />

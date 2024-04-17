@@ -7,11 +7,13 @@ export const getUserForum = async (req: ProtectedRequest, res: Response) => {
     const userId = req.user;
     const { forumId } = req.params;
 
+    console.log(forumId)
+
     if (!userId || !forumId) {
       return res.sendStatus(403);
     }
 
-    const data = await database.userForum.findFirstOrThrow({
+    const data = await database.userForum.findFirst({
       where: {
         userId,
         forumId,
@@ -30,6 +32,8 @@ export const getUserForum = async (req: ProtectedRequest, res: Response) => {
         },
       },
     });
+
+    console.log(data)
 
     return res.json(data);
   } catch (error) {

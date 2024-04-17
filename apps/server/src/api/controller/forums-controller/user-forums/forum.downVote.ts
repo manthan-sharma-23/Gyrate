@@ -11,17 +11,19 @@ export const downvoteForum = async (req: ProtectedRequest, res: Response) => {
       return res.sendStatus(403);
     }
 
+    
     const userForum = await database.userForum.findFirst({
       where: {
         userId,
         forumId,
       },
     });
+    
 
     await database.$transaction([
       database.userForum.upsert({
         where: {
-          id: userForum?.id,
+          id: userForum?.id || "abc",
         },
         create: {
           userId,

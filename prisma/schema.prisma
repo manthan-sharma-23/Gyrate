@@ -26,6 +26,8 @@ model User {
   languages          String[]         @default(["English"])
   interestedSubjects String[]
   isActive           Boolean?         @default(true)
+  isOpenToRequest    Boolean?         @default(false)
+  
 }
 
 model Forum {

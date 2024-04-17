@@ -6,7 +6,6 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { GoHomeFill } from "react-icons/go";
 import { PiGraphFill } from "react-icons/pi";
 import { BsList } from "react-icons/bs";
-import { IoMdNotifications } from "react-icons/io";
 import {
   Accordion,
   AccordionContent,
@@ -21,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Notifications from "../Containers/Notifications";
 import { cn } from "@/lib/utils";
+import { FaRegBell } from "react-icons/fa6";
 
 const ApplicationLayout = () => {
   const { user, loading } = useGetUser();
@@ -51,7 +51,7 @@ const ApplicationLayout = () => {
         <div className="h-full w-auto text-[2.6rem] flex gap-2 items-center">
           <DropdownMenu>
             <DropdownMenuTrigger className="outline-none focus:none focus:border-0 ">
-              <IoMdNotifications className="text-white/45 hover:text-white/85  hover:bg-white/15 p-2 cursor-pointer rounded-full" />
+              <FaRegBell className="text-white  hover:bg-white/15 p-[10px] cursor-pointer rounded-full" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="overflow-hidden rounded-xl w-[20vw] h-[50vh] bg-darkblack shadow-lg p-2 shadow-black  text-white border-0 mt-2 mr-[5vw] relative">
               <Notifications />
@@ -75,7 +75,7 @@ const ApplicationLayout = () => {
             <Link
               to="/"
               className={cn(
-                "px-7 text-[1.2rem] text-white/70 hover:text-white py-2 rounded-xl my-1 flex gap-4 items-center w-full hover:bg-white/5",
+                "px-7 text-[1.2rem] text-white py-2 rounded-xl my-1 flex gap-4 items-center w-full hover:bg-white/5",
                 pathname === "/" && "bg-white/5 text-white"
               )}
             >
@@ -87,7 +87,7 @@ const ApplicationLayout = () => {
             <Link
               to="/f/trending"
               className={cn(
-                "px-7 text-[1.2rem] text-white/70 hover:text-white py-2 rounded-xl my-1 flex gap-4 items-center w-full hover:bg-white/5",
+                "px-7 text-[1.2rem] text-white py-2 rounded-xl my-1 flex gap-4 items-center w-full hover:bg-white/5",
                 pathname.startsWith("/f/trending") && "bg-white/5 text-white"
               )}
             >
@@ -99,7 +99,7 @@ const ApplicationLayout = () => {
             <Link
               to="/f/all"
               className={cn(
-                "px-7 text-[1.2rem] text-white/70 hover:text-white py-2 rounded-xl my-1 flex gap-4 items-center w-full hover:bg-white/5",
+                "px-7 text-[1.2rem]  text-white py-2 rounded-xl my-1 flex gap-4 items-center w-full hover:bg-white/5",
                 pathname.startsWith("/f/all") && "bg-white/5 text-white"
               )}
             >
@@ -111,7 +111,7 @@ const ApplicationLayout = () => {
             <Link
               to="/f/chat"
               className={cn(
-                "px-7 text-[1.2rem] text-white/70 hover:text-white py-2 rounded-xl my-1 flex gap-4 items-center w-full hover:bg-white/5",
+                "px-7 text-[1.2rem] text-white py-2 rounded-xl my-1 flex gap-4 items-center w-full hover:bg-white/5",
                 pathname.startsWith("/f/chat") && "bg-white/5 text-white"
               )}
             >
